@@ -13,7 +13,11 @@ class GenreRepositoryImpl implements GenreRepository {
   });
   @override
   Future<Either<FailureGet, List<GenreEntity>>> getGenre() async {
-    final result = await datasource.getGenre();
-    return Right(result.map((e) => GenreAdapter.fromMap(e)).toList());
+    try {
+      final result = await datasource.getGenre();
+      return Right(result.map((e) => GenreAdapter.fromMap(e)).toList());
+    } catch (e) {
+      return Left(DatasourceError());
+    }
   }
 }
