@@ -39,6 +39,7 @@ dependencies:
   dartz: ^0.10.1
   mocktail: ^0.3.0
   dio: ^5.0.0
+  get: ^4.6.5
  
 
 dev_dependencies:
