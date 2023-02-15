@@ -14,6 +14,10 @@ class GetMovieUsecaseImpl implements GetMovieUsecase {
 
   @override
   Future<Either<FailureGet, List<MovieEntity>>> execute(int page) async {
+    if (page == 0) {
+      return Left(InvalidPageNumber());
+    }
+
     return await repository.getMovie(page);
   }
 }
