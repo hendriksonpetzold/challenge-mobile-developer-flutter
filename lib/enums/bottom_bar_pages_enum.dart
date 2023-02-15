@@ -1,0 +1,4 @@
+enum BottomBarPagesEnum {
+  home,
+  favorite,
+}
