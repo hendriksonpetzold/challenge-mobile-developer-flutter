@@ -3,7 +3,7 @@ import 'package:challange_mobile_developer_flutter/domain/entities/movie_entity.
 class MovieAdapter {
   static MovieEntity fromMap(Map<String, dynamic> map) {
     return MovieEntity(
-      image: map['poster_path'] as String,
+      image: map['backdrop_path'] as String,
       name: map['title'] as String,
       releaseDate: map['release_date'] as String,
       overview: map['overview'] as String,
