@@ -2,11 +2,11 @@ import 'package:challange_mobile_developer_flutter/enums/bottom_bar_pages_enum.d
 import 'package:get/get.dart';
 
 class InitialPageController extends GetxController {
-  final Rx<BottomBarPagesEnum> activePage =
+  final Rx<BottomBarPagesEnum> _activePage =
       Rx<BottomBarPagesEnum>(BottomBarPagesEnum.home);
 
   bool checkActivePage(BottomBarPagesEnum page) {
-    if (page == activePage.value) {
+    if (page == _activePage.value) {
       return true;
     } else {
       return false;
@@ -14,11 +14,11 @@ class InitialPageController extends GetxController {
   }
 
   void changePage(BottomBarPagesEnum page) {
-    activePage.value = page;
+    _activePage.value = page;
   }
 
   int getPageIndex() {
-    switch (activePage.value) {
+    switch (_activePage.value) {
       case BottomBarPagesEnum.home:
         return 0;
       case BottomBarPagesEnum.favorite:
