@@ -14,16 +14,26 @@ class HomePage extends GetView<HomeController> {
       backgroundColor: AppColors.backGroundColor,
       body: Column(
         children: [
-          HomePageSelectMovieTypeBar(),
+          const HomePageSelectMovieTypeBar(),
           Expanded(
-            child: ListView.builder(
-              itemCount: controller.movies.length,
-              itemBuilder: (context, index) {
-                final movie = controller.movies[index];
-                return HomePageMovieCard(
-                  image: movie.image,
-                  movieName: movie.name,
-                  releaseDate: movie.releaseDate,
+            child: Obx(
+              () {
+                return GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 200,
+                    childAspectRatio: 2 / 3,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                  ),
+                  itemCount: controller.searchMovie.length,
+                  itemBuilder: (context, index) {
+                    final movie = controller.searchMovie[index];
+                    return HomePageMovieCard(
+                      image: movie.image,
+                      movieName: movie.name,
+                      releaseDate: movie.releaseDate,
+                    );
+                  },
                 );
               },
             ),
