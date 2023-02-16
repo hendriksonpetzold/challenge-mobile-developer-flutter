@@ -25,6 +25,9 @@ class HomePage extends GetView<HomeController> {
               onChanged: (value) => controller.searchMovie(),
             ),
             const HomePageSelectMovieTypeBar(),
+            const SizedBox(
+              height: 16,
+            ),
             Obx(
               () {
                 return Expanded(

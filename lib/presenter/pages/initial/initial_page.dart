@@ -1,4 +1,5 @@
 import 'package:challange_mobile_developer_flutter/enums/bottom_bar_pages_enum.dart';
+import 'package:challange_mobile_developer_flutter/presenter/pages/favorite/favorite_page.dart';
 import 'package:challange_mobile_developer_flutter/presenter/pages/home/home_page.dart';
 import 'package:challange_mobile_developer_flutter/presenter/pages/initial/components/initial_page_bottom_navigation_bar.dart';
 import 'package:challange_mobile_developer_flutter/presenter/pages/initial/initial_page_controller.dart';
@@ -19,11 +20,7 @@ class InitialPage extends GetView<InitialPageController> {
               index: controller.getPageIndex(),
               children: [
                 const HomePage(),
-                Container(
-                  height: 50,
-                  width: 50,
-                  color: Colors.yellow,
-                ),
+                FavoritePage(),
               ],
             );
           },

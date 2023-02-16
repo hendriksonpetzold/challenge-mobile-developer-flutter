@@ -1,3 +1,4 @@
+import 'package:challange_mobile_developer_flutter/presenter/pages/favorite/favorite_controller.dart';
 import 'package:challange_mobile_developer_flutter/presenter/pages/home/home_controller.dart';
 import 'package:challange_mobile_developer_flutter/presenter/pages/initial/initial_page.dart';
 import 'package:challange_mobile_developer_flutter/presenter/pages/initial/initial_page_controller.dart';
@@ -12,6 +13,7 @@ class Routes {
         () {
           Get.put(InitialPageController());
           Get.put(HomeController());
+          Get.put(FavoriteController());
         },
       ),
     )
