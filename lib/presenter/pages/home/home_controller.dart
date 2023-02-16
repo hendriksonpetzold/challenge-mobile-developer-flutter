@@ -32,6 +32,7 @@ class HomeController extends GetxController {
   Future<void> fetchGenres() async {
     final result = await getGenreUsecase.execute();
     result.fold((l) => l, (r) => genres.addAll(r));
+    genres.refresh();
   }
 
   Future<void> fetchMoviesByGenre(String genre) async {
@@ -83,49 +84,4 @@ class HomeController extends GetxController {
     MovieTypeEnum.war,
     MovieTypeEnum.western,
   ];
-
-  // void getListByGenre() {
-  //   switch (_movieType.value) {
-  //     case MovieTypeEnum.all:
-  //       searchMovie.value = movies;
-
-  //       break;
-  //     case MovieTypeEnum.action:
-  //       genreId.value = 28;
-  //       fetchMoviesByGenre();
-
-  //       break;
-
-  //     case MovieTypeEnum.adventure:
-  //       genreId.value = 12;
-  //       fetchMoviesByGenre();
-
-  //       break;
-
-  //     case MovieTypeEnum.comedy:
-  //       genreId.value = 35;
-  //       fetchMoviesByGenre();
-
-  //       break;
-
-  //     case MovieTypeEnum.drama:
-  //       genreId.value = 18;
-  //       fetchMoviesByGenre();
-
-  //       break;
-
-  //     case MovieTypeEnum.horror:
-  //       genreId.value = 27;
-  //       fetchMoviesByGenre();
-
-  //       break;
-
-  //     case MovieTypeEnum.romance:
-  //       genreId.value = 10749;
-  //       fetchMoviesByGenre();
-
-  //       break;
-  //     default:
-  //   }
-  // }
 }
