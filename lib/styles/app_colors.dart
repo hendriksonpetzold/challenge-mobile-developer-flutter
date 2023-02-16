@@ -5,6 +5,7 @@ class AppColors {
   static const Color accentColor = Color(0XFFF8D458);
   static const Color textColor = Color(0XFFEEF1F4);
   static const Color bottonNavigationBar = Color(0XFF242529);
+  static const Color searchBar = Color(0XFF242529);
   static const Color unSelectedIcon = Color(0XFF42454c);
   static const Color backGroundColor = Color(0XFF000000);
 }

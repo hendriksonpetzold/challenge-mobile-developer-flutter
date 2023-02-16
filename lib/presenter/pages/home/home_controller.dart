@@ -3,14 +3,17 @@ import 'package:challange_mobile_developer_flutter/domain/entities/movie_entity.
 import 'package:challange_mobile_developer_flutter/domain/usecases/get_genre/get_genre_usecase.dart';
 import 'package:challange_mobile_developer_flutter/domain/usecases/get_movie/get_movie_usecase.dart';
 import 'package:challange_mobile_developer_flutter/enums/movie_type_enum.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   final GetMovieUsecase getMovieUsecase = Get.find<GetMovieUsecase>();
   final GetGenreUsecase getGenreUsecase = Get.find<GetGenreUsecase>();
+  final TextEditingController searchEditingController = TextEditingController();
   final RxList<MovieEntity> movies = RxList([]);
-  final RxList<MovieEntity> searchMovie = RxList([]);
+  final RxList<MovieEntity> searchMovies = RxList([]);
   final RxList<GenreEntity> genres = RxList([]);
+  List<MovieEntity> moviesByGenre = [];
   final Rx<MovieTypeEnum> _movieType = Rx<MovieTypeEnum>(MovieTypeEnum.all);
   RxInt genreId = RxInt(28);
   RxBool test = RxBool(false);
@@ -25,7 +28,8 @@ class HomeController extends GetxController {
     final result = await getMovieUsecase.execute(1);
     result.fold((l) => l, (r) {
       movies.addAll(r);
-      searchMovie.addAll(r);
+      searchMovies.addAll(r);
+      moviesByGenre.addAll(r);
     });
   }
 
@@ -42,12 +46,21 @@ class HomeController extends GetxController {
         List<MovieEntity> newList = movies
             .where((element) => element.genreIds.contains(genreId.value))
             .toList();
-        searchMovie.value = newList;
+        searchMovies.value = newList;
+        moviesByGenre = newList;
         break;
       } else {
-        searchMovie.value = movies;
+        searchMovies.value = movies;
+        moviesByGenre = movies;
       }
     }
+  }
+
+  void searchMovie() {
+    List<MovieEntity> newList = moviesByGenre
+        .where((item) => item.name.contains(searchEditingController.text))
+        .toList();
+    searchMovies.value = newList;
   }
 
   void changeList({required MovieTypeEnum newMovieType}) {
