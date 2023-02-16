@@ -5,11 +5,13 @@ class AppTextButton extends StatelessWidget {
   final bool isSelected;
   final String label;
   final void Function()? onTap;
+  final EdgeInsetsGeometry? padding;
   const AppTextButton({
     Key? key,
     required this.isSelected,
     required this.label,
     required this.onTap,
+    this.padding,
   }) : super(key: key);
 
   @override
@@ -18,7 +20,7 @@ class AppTextButton extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          padding: const EdgeInsets.only(bottom: 4),
+          padding: padding,
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
