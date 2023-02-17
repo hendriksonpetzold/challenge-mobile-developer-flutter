@@ -45,7 +45,6 @@ class HomePage extends GetView<HomeController> {
                       return AppMovieCard(
                         image: movie.image,
                         movieName: movie.name,
-                        releaseDate: movie.releaseDate,
                       );
                     },
                   ),
