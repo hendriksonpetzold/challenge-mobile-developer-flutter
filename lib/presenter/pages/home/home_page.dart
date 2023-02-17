@@ -55,6 +55,7 @@ class HomePage extends GetView<HomeController> {
                               'movieOverview': movie.overview,
                               'releaseDate': movie.releaseDate,
                               'voteAverage': movie.voteAverage,
+                              'genreIds': movie.genreIds,
                             },
                           );
                         },
