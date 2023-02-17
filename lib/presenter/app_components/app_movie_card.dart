@@ -1,12 +1,12 @@
 import 'package:challange_mobile_developer_flutter/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class HomePageMovieCard extends StatelessWidget {
+class AppMovieCard extends StatelessWidget {
   final String image;
   final String movieName;
   final String releaseDate;
   final void Function()? onAddIconTap;
-  const HomePageMovieCard({
+  const AppMovieCard({
     Key? key,
     required this.image,
     required this.movieName,

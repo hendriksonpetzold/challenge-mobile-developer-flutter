@@ -1,4 +1,4 @@
-import 'package:challange_mobile_developer_flutter/presenter/pages/home/components/home_page_movie_card.dart';
+import 'package:challange_mobile_developer_flutter/presenter/app_components/app_movie_card.dart';
 import 'package:challange_mobile_developer_flutter/presenter/pages/home/components/home_page_search_form_field.dart';
 import 'package:challange_mobile_developer_flutter/presenter/pages/home/components/home_page_select_movie_type_bar.dart';
 import 'package:challange_mobile_developer_flutter/presenter/pages/home/home_controller.dart';
@@ -42,7 +42,7 @@ class HomePage extends GetView<HomeController> {
                     itemCount: controller.searchMovies.length,
                     itemBuilder: (context, index) {
                       final movie = controller.searchMovies[index];
-                      return HomePageMovieCard(
+                      return AppMovieCard(
                         image: movie.image,
                         movieName: movie.name,
                         releaseDate: movie.releaseDate,
