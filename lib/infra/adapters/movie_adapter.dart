@@ -9,6 +9,7 @@ class MovieAdapter {
       overview: map['overview'] as String,
       voteAverage: double.parse(map['vote_average'].toString()),
       genreIds: (map['genre_ids'].cast<int>()),
+      id: map['id'],
     );
   }
 }
