@@ -46,7 +46,18 @@ class HomePage extends GetView<HomeController> {
                         image: movie.image,
                         movieName: movie.name,
                         onAddIconTap: () {
-                          Get.toNamed('/movie_detail');
+                          Get.toNamed(
+                            '/movie_detail',
+                            arguments: {
+                              'movieId': movie.id,
+                              'movieImage': movie.image,
+                              'movieTitle': movie.name,
+                              'movieOverview': movie.overview,
+                              'releaseDate': movie.releaseDate,
+                              'voteAverage': movie.voteAverage,
+                              'genreIds': movie.genreIds,
+                            },
+                          );
                         },
                       );
                     },

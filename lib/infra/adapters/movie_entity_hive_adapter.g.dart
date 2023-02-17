@@ -24,13 +24,14 @@ class MovieEntityHiveAdapter extends TypeAdapter<MovieEntity> {
       voteAverage: fields[4] as double,
       genreIds: (fields[5] as List).cast<int>(),
       isFavorite: fields[6] as bool?,
+      id: fields[7] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, MovieEntity obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.image)
       ..writeByte(1)
@@ -44,7 +45,9 @@ class MovieEntityHiveAdapter extends TypeAdapter<MovieEntity> {
       ..writeByte(5)
       ..write(obj.genreIds)
       ..writeByte(6)
-      ..write(obj.isFavorite);
+      ..write(obj.isFavorite)
+      ..writeByte(7)
+      ..write(obj.id);
   }
 
   @override
