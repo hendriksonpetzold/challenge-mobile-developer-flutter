@@ -17,6 +17,8 @@ class MovieEntity {
   final List<int> genreIds;
   @HiveField(6)
   final bool? isFavorite;
+  @HiveField(7)
+  final int id;
   MovieEntity({
     required this.image,
     required this.name,
@@ -25,5 +27,6 @@ class MovieEntity {
     required this.voteAverage,
     required this.genreIds,
     this.isFavorite = false,
+    required this.id,
   });
 }

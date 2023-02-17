@@ -24,6 +24,7 @@ class MovieEntityHiveAdapter extends TypeAdapter<MovieEntity> {
       voteAverage: fields[4] as double,
       genreIds: (fields[5] as List).cast<int>(),
       isFavorite: fields[6] as bool?,
+      id: fields[7] as int,
     );
   }
 
