@@ -4,13 +4,12 @@ import 'package:flutter/material.dart';
 class AppMovieCard extends StatelessWidget {
   final String image;
   final String movieName;
-  final String releaseDate;
+
   final void Function()? onAddIconTap;
   const AppMovieCard({
     Key? key,
     required this.image,
     required this.movieName,
-    required this.releaseDate,
     this.onAddIconTap,
   }) : super(key: key);
 
