@@ -49,6 +49,7 @@ class HomePage extends GetView<HomeController> {
                           Get.toNamed(
                             '/movie_detail',
                             arguments: {
+                              'movieId': movie.id,
                               'movieImage': movie.image,
                               'movieTitle': movie.name,
                               'movieOverview': movie.overview,
