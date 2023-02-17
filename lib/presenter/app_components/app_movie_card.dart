@@ -28,22 +28,6 @@ class AppMovieCard extends StatelessWidget {
               ),
             ),
           ),
-          child: Align(
-            alignment: Alignment.topRight,
-            child: GestureDetector(
-              onTap: onAddIconTap,
-              child: Container(
-                margin: const EdgeInsets.all(8),
-                height: 30,
-                width: 30,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: const Icon(Icons.add),
-              ),
-            ),
-          ),
         ),
         Container(
           decoration: BoxDecoration(
@@ -76,6 +60,22 @@ class AppMovieCard extends StatelessWidget {
                 color: AppColors.textColor,
                 fontWeight: FontWeight.w600,
               ),
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.topRight,
+          child: GestureDetector(
+            onTap: onAddIconTap,
+            child: Container(
+              margin: const EdgeInsets.all(8),
+              height: 30,
+              width: 30,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: const Icon(Icons.add),
             ),
           ),
         ),
