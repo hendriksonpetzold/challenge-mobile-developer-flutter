@@ -45,6 +45,9 @@ class HomePage extends GetView<HomeController> {
                       return AppMovieCard(
                         image: movie.image,
                         movieName: movie.name,
+                        onAddIconTap: () {
+                          Get.toNamed('/movie_detail');
+                        },
                       );
                     },
                   ),
