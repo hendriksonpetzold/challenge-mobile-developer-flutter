@@ -7,7 +7,7 @@ class FavoriteController extends GetxController {
   RxList<MovieEntity> favoritesList = RxList([]);
   @override
   void onInit() {
-    favoriteMovieBox = Hive.box('favorites');
+    favoriteMovieBox = Hive.box('favorite');
 
     favoritesList.value = favoriteMovieBox.values.toList().cast<MovieEntity>();
 
