@@ -30,6 +30,9 @@ class FavoritePage extends GetView<FavoriteController> {
                 ),
               ),
             ),
+            const SizedBox(
+              height: 16,
+            ),
             Expanded(
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
