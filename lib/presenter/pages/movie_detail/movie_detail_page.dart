@@ -40,68 +40,76 @@ class MovieDetailPage extends GetView<MovieDetailPageController> {
           ),
         ],
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              FutureBuilder(
-                future: controller.fetchMovieTrailer(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return YoutubePlayer(
-                      controller: controller.youtubePlayerController,
-                    );
-                  } else if (snapshot.connectionState ==
-                      ConnectionState.waiting) {
-                    return SizedBox(
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.height * .25,
-                      child: const Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.white,
-                        ),
-                      ),
-                    );
-                  } else {
-                    return Container();
-                  }
-                },
+      body: LayoutBuilder(builder: (context, constrains) {
+        if (constrains.maxWidth < 600) {
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FutureBuilder(
+                    future: controller.fetchMovieTrailer(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return YoutubePlayer(
+                          controller: controller.youtubePlayerController,
+                        );
+                      } else if (snapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return SizedBox(
+                          width: double.infinity,
+                          height: MediaQuery.of(context).size.height * .25,
+                          child: const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          ),
+                        );
+                      } else {
+                        return Container();
+                      }
+                    },
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  MovieDetailPageInformationBox(
+                    releaseDate: controller.releaseDate,
+                    grade: controller.grade,
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  const Text(
+                    'Overview',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    controller.movieOverview,
+                    textAlign: TextAlign.justify,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(
-                height: 16,
-              ),
-              MovieDetailPageInformationBox(
-                releaseDate: controller.releaseDate,
-                grade: controller.grade,
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              const Text(
-                'Overview',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Text(
-                controller.movieOverview,
-                textAlign: TextAlign.justify,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+            ),
+          );
+        } else {
+          return YoutubePlayer(
+            controller: controller.youtubePlayerController,
+          );
+        }
+      }),
     );
   }
 }
