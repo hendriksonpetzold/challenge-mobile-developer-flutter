@@ -5,6 +5,7 @@ import 'package:challange_mobile_developer_flutter/presenter/pages/home/home_con
 import 'package:challange_mobile_developer_flutter/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({Key? key}) : super(key: key);
@@ -31,39 +32,42 @@ class HomePage extends GetView<HomeController> {
             Obx(
               () {
                 return Expanded(
-                  child: GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 200,
-                      childAspectRatio: 2 / 3,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
+                  child: SmartRefresher(
+                    controller: controller.refreshController,
+                    child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent: 200,
+                        childAspectRatio: 2 / 3,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                      ),
+                      itemCount: controller.searchMovies.length,
+                      itemBuilder: (context, index) {
+                        final movie = controller.searchMovies[index];
+                        return AppMovieCard(
+                          image: movie.image,
+                          movieName: movie.name,
+                          onAddIconTap: () {
+                            final movieBox =
+                                controller.favoriteMovieBox.get(movie.name);
+                            Get.toNamed(
+                              '/movie_detail',
+                              arguments: {
+                                'movieId': movie.id,
+                                'movieImage': movie.image,
+                                'movieTitle': movie.name,
+                                'movieOverview': movie.overview,
+                                'releaseDate': movie.releaseDate,
+                                'voteAverage': movie.voteAverage,
+                                'genreIds': movie.genreIds,
+                                'isFavorite': movieBox?.isFavorite ?? false,
+                              },
+                            );
+                          },
+                        );
+                      },
                     ),
-                    itemCount: controller.searchMovies.length,
-                    itemBuilder: (context, index) {
-                      final movie = controller.searchMovies[index];
-                      return AppMovieCard(
-                        image: movie.image,
-                        movieName: movie.name,
-                        onAddIconTap: () {
-                          final movieBox =
-                              controller.favoriteMovieBox.get(movie.name);
-                          Get.toNamed(
-                            '/movie_detail',
-                            arguments: {
-                              'movieId': movie.id,
-                              'movieImage': movie.image,
-                              'movieTitle': movie.name,
-                              'movieOverview': movie.overview,
-                              'releaseDate': movie.releaseDate,
-                              'voteAverage': movie.voteAverage,
-                              'genreIds': movie.genreIds,
-                              'isFavorite': movieBox?.isFavorite ?? false,
-                            },
-                          );
-                        },
-                      );
-                    },
                   ),
                 );
               },

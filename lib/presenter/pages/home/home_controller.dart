@@ -6,6 +6,7 @@ import 'package:challange_mobile_developer_flutter/enums/movie_type_enum.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomeController extends GetxController {
   final GetMovieUsecase getMovieUsecase = Get.find<GetMovieUsecase>();
@@ -19,6 +20,8 @@ class HomeController extends GetxController {
   RxInt genreId = RxInt(28);
   RxBool test = RxBool(false);
   late Box<MovieEntity> favoriteMovieBox;
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
   @override
   void onInit() {
     fetchMovies();
@@ -39,7 +42,6 @@ class HomeController extends GetxController {
   Future<void> fetchGenres() async {
     final result = await getGenreUsecase.execute();
     result.fold((l) => l, (r) => genres.addAll(r));
-    genres.refresh();
   }
 
   Future<void> fetchMoviesByGenre(String genre) async {
