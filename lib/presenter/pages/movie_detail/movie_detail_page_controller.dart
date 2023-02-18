@@ -1,6 +1,8 @@
 import 'package:challange_mobile_developer_flutter/domain/entities/movie_trailer_entity.dart';
 import 'package:challange_mobile_developer_flutter/domain/usecases/get_trailer_by_movie_id/get_trailer_by_movie_id_usecase.dart';
 import 'package:challange_mobile_developer_flutter/presenter/pages/favorite/favorite_controller.dart';
+import 'package:challange_mobile_developer_flutter/styles/app_colors.dart';
+import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -13,6 +15,7 @@ class MovieDetailPageController extends GetxController {
       Get.find<GetTrailerByMovieIdUsecase>();
   MovieTrailerEntity? movieTrailer;
   RxString key = RxString('');
+  bool isSnackBarUp = false;
   RxBool isFavorite = RxBool(Get.arguments['isFavorite']);
   late Box<MovieEntity> favoriteMovieBox;
   int movieId = Get.arguments['movieId'];
@@ -43,27 +46,53 @@ class MovieDetailPageController extends GetxController {
     key.value = movieTrailer!.key;
   }
 
-  void onFavoriteButtonTap() {
-    isFavorite.value = !isFavorite.value;
-
-    if (isFavorite.value == true) {
-      favoriteMovieBox.put(
-        movieTitle,
-        MovieEntity(
-          image: movieImage,
-          name: movieTitle,
-          releaseDate: releaseDate,
-          overview: movieOverview,
-          voteAverage: grade,
-          genreIds: genreIds,
-          isFavorite: isFavorite.value,
-          id: movieId,
-        ),
-      );
-      Get.find<FavoriteController>().updateList();
-    } else {
-      favoriteMovieBox.delete(movieTitle);
-      Get.find<FavoriteController>().updateList();
+  Future<void> onFavoriteButtonTap(BuildContext context) async {
+    if (isSnackBarUp == false) {
+      isSnackBarUp = true;
+      isFavorite.value = !isFavorite.value;
+      if (isFavorite.value == true) {
+        favoriteMovieBox.put(
+          movieTitle,
+          MovieEntity(
+            image: movieImage,
+            name: movieTitle,
+            releaseDate: releaseDate,
+            overview: movieOverview,
+            voteAverage: grade,
+            genreIds: genreIds,
+            isFavorite: isFavorite.value,
+            id: movieId,
+          ),
+        );
+        Get.find<FavoriteController>().updateList();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Movie added to favorite',
+              style: TextStyle(
+                color: AppColors.accentColor,
+              ),
+            ),
+          ),
+        );
+        await Future.delayed(const Duration(seconds: 4));
+        isSnackBarUp = false;
+      } else {
+        favoriteMovieBox.delete(movieTitle);
+        Get.find<FavoriteController>().updateList();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Movie removed from favorite',
+              style: TextStyle(
+                color: AppColors.accentColor,
+              ),
+            ),
+          ),
+        );
+        await Future.delayed(const Duration(seconds: 4));
+        isSnackBarUp = false;
+      }
     }
   }
 }

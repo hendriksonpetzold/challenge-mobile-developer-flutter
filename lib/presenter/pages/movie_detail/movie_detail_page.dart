@@ -18,17 +18,26 @@ class MovieDetailPage extends GetView<MovieDetailPageController> {
         centerTitle: true,
         title: Text(controller.movieTitle),
         actions: [
-          Obx(() {
-            return IconButton(
-              onPressed: () {
-                controller.onFavoriteButtonTap();
-              },
-              icon: Icon(
-                Icons.favorite,
-                color: controller.isFavorite.value ? Colors.red : Colors.white,
-              ),
-            );
-          })
+          Obx(
+            () {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: GestureDetector(
+                  onTap: () {
+                    controller.onFavoriteButtonTap(context);
+                  },
+                  child: controller.isFavorite.value
+                      ? const Icon(
+                          Icons.favorite,
+                          color: Colors.red,
+                        )
+                      : const Icon(
+                          Icons.favorite_outline,
+                        ),
+                ),
+              );
+            },
+          ),
         ],
       ),
       body: SafeArea(
@@ -83,6 +92,7 @@ class MovieDetailPage extends GetView<MovieDetailPageController> {
               ),
               Text(
                 controller.movieOverview,
+                textAlign: TextAlign.justify,
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
