@@ -4,13 +4,17 @@ import 'package:hive/hive.dart';
 
 class FavoriteController extends GetxController {
   late Box<MovieEntity> favoriteMovieBox;
-  RxList<MovieEntity> favoritesList = RxList([]);
+  RxList<MovieEntity> favoriteMovies = RxList([]);
   @override
   void onInit() {
-    favoriteMovieBox = Hive.box('newBox');
+    favoriteMovieBox = Hive.box('favorities');
 
-    favoritesList.value = favoriteMovieBox.values.toList().cast<MovieEntity>();
+    favoriteMovies.value = favoriteMovieBox.values.toList().cast<MovieEntity>();
 
     super.onInit();
+  }
+
+  void updateList() {
+    favoriteMovies.value = favoriteMovieBox.values.toList().cast<MovieEntity>();
   }
 }

@@ -8,6 +8,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(MovieEntityHiveAdapter());
-  await Hive.openBox<MovieEntity>('newBox');
+  await Hive.openBox<MovieEntity>('favorities');
   runApp(const App());
 }

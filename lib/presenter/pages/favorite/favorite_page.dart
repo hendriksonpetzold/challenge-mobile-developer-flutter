@@ -30,6 +30,9 @@ class FavoritePage extends GetView<FavoriteController> {
                 ),
               ),
             ),
+            const SizedBox(
+              height: 16,
+            ),
             Expanded(
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -38,9 +41,9 @@ class FavoritePage extends GetView<FavoriteController> {
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
                 ),
-                itemCount: controller.favoritesList.length,
+                itemCount: controller.favoriteMovies.length,
                 itemBuilder: (context, index) {
-                  final favoriteMovie = controller.favoritesList[index];
+                  final favoriteMovie = controller.favoriteMovies[index];
                   return AppMovieCard(
                     image: favoriteMovie.image,
                     movieName: favoriteMovie.name,
