@@ -3,6 +3,7 @@ import 'package:challange_mobile_developer_flutter/domain/usecases/get_trailer_b
 import 'package:challange_mobile_developer_flutter/presenter/pages/favorite/favorite_controller.dart';
 import 'package:challange_mobile_developer_flutter/styles/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -38,6 +39,12 @@ class MovieDetailPageController extends GetxController {
     fetchMovieTrailer();
     favoriteMovieBox = Hive.box('favorities');
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    super.onClose();
   }
 
   Future<void> fetchMovieTrailer() async {
