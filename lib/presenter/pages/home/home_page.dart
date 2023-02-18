@@ -34,6 +34,13 @@ class HomePage extends GetView<HomeController> {
                 return Expanded(
                   child: SmartRefresher(
                     controller: controller.refreshController,
+                    enablePullUp: true,
+                    onRefresh: () {
+                      controller.onRefresh();
+                    },
+                    onLoading: () {
+                      controller.onLoading();
+                    },
                     child: GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithMaxCrossAxisExtent(

@@ -17,26 +17,63 @@ class HomeController extends GetxController {
   final RxList<GenreEntity> genres = RxList([]);
   List<MovieEntity> moviesByGenre = [];
   final Rx<MovieTypeEnum> _movieType = Rx<MovieTypeEnum>(MovieTypeEnum.all);
-  RxInt genreId = RxInt(28);
+  RxInt genreId = RxInt(0);
   RxBool test = RxBool(false);
   late Box<MovieEntity> favoriteMovieBox;
-  RefreshController refreshController =
-      RefreshController(initialRefresh: false);
+  RefreshController refreshController = RefreshController(initialRefresh: true);
+  int currentPage = 1;
   @override
   void onInit() {
-    fetchMovies();
     fetchGenres();
     favoriteMovieBox = Hive.box('favorities');
     super.onInit();
   }
 
-  Future<void> fetchMovies() async {
-    final result = await getMovieUsecase.execute(1);
-    result.fold((l) => l, (r) {
-      movies.addAll(r);
-      searchMovies.addAll(r);
-      moviesByGenre.addAll(r);
-    });
+  Future<bool> fetchMovies({bool isRefresh = false}) async {
+    if (isRefresh) {
+      currentPage = 1;
+    }
+
+    final result = await getMovieUsecase.execute(currentPage);
+    if (result.isLeft()) {
+      return false;
+    } else {
+      if (isRefresh) {
+        result.fold((l) => l, (r) => movies.value = r);
+        result.fold((l) => l, (r) => searchMovies.value = r);
+      } else {
+        result.fold((l) => l, (r) => movies.addAll(r));
+        result.fold((l) => l, (r) => searchMovies.addAll(r));
+        if (genreId.value != 0) {
+          List<MovieEntity> newList = movies
+              .where((element) => element.genreIds.contains(genreId.value))
+              .toList();
+          searchMovies.value = newList;
+          moviesByGenre = newList;
+        }
+      }
+      currentPage++;
+
+      return true;
+    }
+  }
+
+  void onRefresh() async {
+    final result = await fetchMovies(isRefresh: true);
+    if (result == true) {
+      refreshController.refreshCompleted();
+    } else {
+      refreshController.refreshFailed();
+    }
+  }
+
+  void onLoading() async {
+    final result = await fetchMovies();
+    if (result == true) {
+      refreshController.loadComplete();
+    } else {
+      refreshController.loadFailed();
+    }
   }
 
   Future<void> fetchGenres() async {
