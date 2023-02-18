@@ -1,5 +1,6 @@
 import 'package:challange_mobile_developer_flutter/domain/entities/movie_trailer_entity.dart';
 import 'package:challange_mobile_developer_flutter/domain/usecases/get_trailer_by_movie_id/get_trailer_by_movie_id_usecase.dart';
+import 'package:challange_mobile_developer_flutter/presenter/pages/favorite/favorite_controller.dart';
 
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -12,7 +13,7 @@ class MovieDetailPageController extends GetxController {
       Get.find<GetTrailerByMovieIdUsecase>();
   MovieTrailerEntity? movieTrailer;
   RxString key = RxString('');
-  RxBool isFavorite = RxBool(false);
+  RxBool isFavorite = RxBool(Get.arguments['isFavorite']);
   late Box<MovieEntity> favoriteMovieBox;
   int movieId = Get.arguments['movieId'];
   String movieImage = Get.arguments['movieImage'];
@@ -32,7 +33,7 @@ class MovieDetailPageController extends GetxController {
   @override
   void onInit() {
     fetchMovieTrailer();
-    favoriteMovieBox = Hive.box('newBox');
+    favoriteMovieBox = Hive.box('favorities');
     super.onInit();
   }
 
@@ -59,8 +60,10 @@ class MovieDetailPageController extends GetxController {
           id: movieId,
         ),
       );
+      Get.find<FavoriteController>().updateList();
     } else {
       favoriteMovieBox.delete(movieTitle);
+      Get.find<FavoriteController>().updateList();
     }
   }
 }

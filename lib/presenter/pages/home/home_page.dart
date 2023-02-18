@@ -46,6 +46,8 @@ class HomePage extends GetView<HomeController> {
                         image: movie.image,
                         movieName: movie.name,
                         onAddIconTap: () {
+                          final movieBox =
+                              controller.favoriteMovieBox.get(movie.name);
                           Get.toNamed(
                             '/movie_detail',
                             arguments: {
@@ -56,6 +58,7 @@ class HomePage extends GetView<HomeController> {
                               'releaseDate': movie.releaseDate,
                               'voteAverage': movie.voteAverage,
                               'genreIds': movie.genreIds,
+                              'isFavorite': movieBox?.isFavorite ?? false,
                             },
                           );
                         },

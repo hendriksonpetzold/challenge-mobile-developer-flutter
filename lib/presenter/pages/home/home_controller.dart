@@ -5,6 +5,7 @@ import 'package:challange_mobile_developer_flutter/domain/usecases/get_movie/get
 import 'package:challange_mobile_developer_flutter/enums/movie_type_enum.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 
 class HomeController extends GetxController {
   final GetMovieUsecase getMovieUsecase = Get.find<GetMovieUsecase>();
@@ -17,10 +18,12 @@ class HomeController extends GetxController {
   final Rx<MovieTypeEnum> _movieType = Rx<MovieTypeEnum>(MovieTypeEnum.all);
   RxInt genreId = RxInt(28);
   RxBool test = RxBool(false);
+  late Box<MovieEntity> favoriteMovieBox;
   @override
   void onInit() {
     fetchMovies();
     fetchGenres();
+    favoriteMovieBox = Hive.box('favorities');
     super.onInit();
   }
 
