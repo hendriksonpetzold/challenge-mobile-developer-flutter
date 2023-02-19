@@ -13,14 +13,27 @@ class InitialPage extends GetView<InitialPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backGroundColor,
       body: SafeArea(
         child: Obx(
           () {
             return IndexedStack(
               index: controller.getPageIndex(),
               children: [
-                const HomePage(),
-                FavoritePage(),
+                Obx(() {
+                  return AnimatedOpacity(
+                    opacity: controller.homePageOpacity.value,
+                    duration: const Duration(seconds: 2),
+                    child: const HomePage(),
+                  );
+                }),
+                Obx(() {
+                  return AnimatedOpacity(
+                    opacity: controller.favoritePageOpacity.value,
+                    duration: const Duration(seconds: 2),
+                    child: const FavoritePage(),
+                  );
+                })
               ],
             );
           },
@@ -39,7 +52,7 @@ class InitialPage extends GetView<InitialPageController> {
                       : AppColors.unSelectedIcon,
                 ),
                 onTap: () {
-                  controller.changePage(BottomBarPagesEnum.home);
+                  controller.onHomeButtonPressed();
                 },
               ),
               GestureDetector(
@@ -51,7 +64,7 @@ class InitialPage extends GetView<InitialPageController> {
                       : AppColors.unSelectedIcon,
                 ),
                 onTap: () {
-                  controller.changePage(BottomBarPagesEnum.favorite);
+                  controller.onFavoriteButtonPressed();
                 },
               ),
             ],
