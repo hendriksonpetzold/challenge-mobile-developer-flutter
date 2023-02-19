@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 class AppMovieCard extends StatelessWidget {
   final String image;
   final String movieName;
+  final String tag;
 
   final void Function()? onAddIconTap;
   const AppMovieCard({
     Key? key,
     required this.image,
     required this.movieName,
+    required this.tag,
     this.onAddIconTap,
   }) : super(key: key);
 
@@ -17,14 +19,16 @@ class AppMovieCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
-          height: MediaQuery.of(context).size.height * .35,
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: NetworkImage(
-                'https://image.tmdb.org/t/p/w220_and_h330_face$image',
+        Hero(
+          tag: tag,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(
+                  'https://image.tmdb.org/t/p/w220_and_h330_face$image',
+                ),
               ),
             ),
           ),
@@ -50,18 +54,6 @@ class AppMovieCard extends StatelessWidget {
               ],
             ),
           ),
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Text(
-              movieName,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 18,
-                color: AppColors.textColor,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
         ),
         Align(
           alignment: Alignment.topRight,
@@ -76,6 +68,20 @@ class AppMovieCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30),
               ),
               child: const Icon(Icons.add),
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: SizedBox(
+            child: Text(
+              movieName,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 18,
+                color: AppColors.textColor,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ),

@@ -47,6 +47,7 @@ class FavoritePage extends GetView<FavoriteController> {
                   return AppMovieCard(
                     image: favoriteMovie.image,
                     movieName: favoriteMovie.name,
+                    tag: 'favorite$index',
                     onAddIconTap: () {
                       Get.toNamed(
                         '/movie_detail',
@@ -59,6 +60,7 @@ class FavoritePage extends GetView<FavoriteController> {
                           'voteAverage': favoriteMovie.voteAverage,
                           'genreIds': favoriteMovie.genreIds,
                           'isFavorite': true,
+                          'tag': 'favorite$index'
                         },
                       );
                     },
