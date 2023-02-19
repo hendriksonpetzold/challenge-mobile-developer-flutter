@@ -22,6 +22,7 @@ class HomeController extends GetxController {
   late Box<MovieEntity> favoriteMovieBox;
   RefreshController refreshController = RefreshController(initialRefresh: true);
   int currentPage = 1;
+
   @override
   void onInit() {
     fetchGenres();

@@ -55,6 +55,7 @@ class HomePage extends GetView<HomeController> {
                         return AppMovieCard(
                           image: movie.image,
                           movieName: movie.name,
+                          tag: 'tag$index',
                           onAddIconTap: () {
                             final movieBox =
                                 controller.favoriteMovieBox.get(movie.name);
@@ -69,6 +70,7 @@ class HomePage extends GetView<HomeController> {
                                 'voteAverage': movie.voteAverage,
                                 'genreIds': movie.genreIds,
                                 'isFavorite': movieBox?.isFavorite ?? false,
+                                'tag': 'tag$index'
                               },
                             );
                           },

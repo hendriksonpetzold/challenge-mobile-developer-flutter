@@ -47,6 +47,23 @@ class FavoritePage extends GetView<FavoriteController> {
                   return AppMovieCard(
                     image: favoriteMovie.image,
                     movieName: favoriteMovie.name,
+                    tag: 'favorite$index',
+                    onAddIconTap: () {
+                      Get.toNamed(
+                        '/movie_detail',
+                        arguments: {
+                          'movieId': favoriteMovie.id,
+                          'movieImage': favoriteMovie.image,
+                          'movieTitle': favoriteMovie.name,
+                          'movieOverview': favoriteMovie.overview,
+                          'releaseDate': favoriteMovie.releaseDate,
+                          'voteAverage': favoriteMovie.voteAverage,
+                          'genreIds': favoriteMovie.genreIds,
+                          'isFavorite': true,
+                          'tag': 'favorite$index'
+                        },
+                      );
+                    },
                   );
                 },
               ),

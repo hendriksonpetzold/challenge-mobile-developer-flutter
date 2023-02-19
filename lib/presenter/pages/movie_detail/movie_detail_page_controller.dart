@@ -26,6 +26,8 @@ class MovieDetailPageController extends GetxController {
   String releaseDate = Get.arguments['releaseDate'];
   double grade = Get.arguments['voteAverage'];
   List<int> genreIds = Get.arguments['genreIds'];
+  String tag = Get.arguments['tag'];
+  RxList<String> genresById = RxList([]);
   late YoutubePlayerController youtubePlayerController =
       YoutubePlayerController(
     initialVideoId: YoutubePlayer.convertUrlToId(

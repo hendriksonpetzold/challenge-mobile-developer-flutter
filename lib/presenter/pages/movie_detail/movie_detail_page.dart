@@ -1,4 +1,5 @@
-import 'package:challange_mobile_developer_flutter/presenter/app_components/app_custom_back_button.dart';
+import 'package:challange_mobile_developer_flutter/presenter/app_components/app_movie_card.dart';
+import 'package:challange_mobile_developer_flutter/presenter/pages/movie_detail/components/movie_detail_page_information_body.dart';
 import 'package:challange_mobile_developer_flutter/presenter/pages/movie_detail/components/movie_detail_page_information_box.dart';
 import 'package:challange_mobile_developer_flutter/presenter/pages/movie_detail/movie_detail_page_controller.dart';
 import 'package:challange_mobile_developer_flutter/styles/app_colors.dart';
@@ -11,105 +12,109 @@ class MovieDetailPage extends GetView<MovieDetailPageController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.backGroundColor,
-      appBar: AppBar(
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
         backgroundColor: AppColors.backGroundColor,
-        centerTitle: true,
-        title: Text(controller.movieTitle),
-        actions: [
-          Obx(
-            () {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: GestureDetector(
-                  onTap: () {
-                    controller.onFavoriteButtonTap(context);
-                  },
-                  child: controller.isFavorite.value
-                      ? const Icon(
-                          Icons.favorite,
-                          color: Colors.red,
-                        )
-                      : const Icon(
-                          Icons.favorite_outline,
+        appBar: AppBar(
+          backgroundColor: AppColors.backGroundColor,
+          centerTitle: true,
+          title: Text(controller.movieTitle),
+          actions: [
+            Obx(
+              () {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: GestureDetector(
+                    onTap: () {
+                      controller.onFavoriteButtonTap(context);
+                    },
+                    child: controller.isFavorite.value
+                        ? const Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                          )
+                        : const Icon(
+                            Icons.favorite_outline,
+                          ),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+        body: SafeArea(
+          child: Column(
+            children: [
+              LayoutBuilder(builder: (context, constrains) {
+                if (constrains.maxWidth < 600) {
+                  return const TabBar(
+                    indicatorColor: AppColors.accentColor,
+                    tabs: [
+                      Tab(
+                        icon: Text(
+                          'Informations',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
                         ),
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-      body: LayoutBuilder(builder: (context, constrains) {
-        if (constrains.maxWidth < 600) {
-          return SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  FutureBuilder(
-                    future: controller.fetchMovieTrailer(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        return YoutubePlayer(
-                          controller: controller.youtubePlayerController,
-                        );
-                      } else if (snapshot.connectionState ==
-                          ConnectionState.waiting) {
-                        return SizedBox(
-                          width: double.infinity,
-                          height: MediaQuery.of(context).size.height * .25,
-                          child: const Center(
+                      ),
+                      Tab(
+                        icon: Text(
+                          'Trailer',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  return Container();
+                }
+              }),
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    MovieDetailPageInformationBody(
+                      heroTag: controller.tag,
+                      movieImage: controller.movieImage,
+                      releaseDate: controller.releaseDate,
+                      overview: controller.movieOverview,
+                      voteAverage: '${controller.grade}',
+                    ),
+                    FutureBuilder(
+                      future: controller.fetchMovieTrailer(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return Align(
+                            alignment: Alignment.topCenter,
+                            child: ConstrainedBox(
+                              constraints: const BoxConstraints(),
+                              child: YoutubePlayer(
+                                controller: controller.youtubePlayerController,
+                              ),
+                            ),
+                          );
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
                             child: CircularProgressIndicator(
                               color: Colors.white,
                             ),
-                          ),
-                        );
-                      } else {
-                        return Container();
-                      }
-                    },
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  MovieDetailPageInformationBox(
-                    releaseDate: controller.releaseDate,
-                    grade: controller.grade,
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  const Text(
-                    'Overview',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                          );
+                        } else {
+                          return Container();
+                        }
+                      },
                     ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    controller.movieOverview,
-                    textAlign: TextAlign.justify,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          );
-        } else {
-          return YoutubePlayer(
-            controller: controller.youtubePlayerController,
-          );
-        }
-      }),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
