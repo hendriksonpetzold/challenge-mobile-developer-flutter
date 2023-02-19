@@ -83,28 +83,30 @@ class MovieDetailPage extends GetView<MovieDetailPageController> {
                       overview: controller.movieOverview,
                       voteAverage: '${controller.grade}',
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: FutureBuilder(
-                        future: controller.fetchMovieTrailer(),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return YoutubePlayer(
-                              controller: controller.youtubePlayerController,
-                            );
-                          } else if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const Center(
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
+                    FutureBuilder(
+                      future: controller.fetchMovieTrailer(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return Align(
+                            alignment: Alignment.topCenter,
+                            child: ConstrainedBox(
+                              constraints: const BoxConstraints(),
+                              child: YoutubePlayer(
+                                controller: controller.youtubePlayerController,
                               ),
-                            );
-                          } else {
-                            return Container();
-                          }
-                        },
-                      ),
+                            ),
+                          );
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          );
+                        } else {
+                          return Container();
+                        }
+                      },
                     ),
                   ],
                 ),
