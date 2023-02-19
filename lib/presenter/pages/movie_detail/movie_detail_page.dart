@@ -20,27 +20,6 @@ class MovieDetailPage extends GetView<MovieDetailPageController> {
           backgroundColor: AppColors.backGroundColor,
           centerTitle: true,
           title: Text(controller.movieTitle),
-          bottom: const TabBar(
-            indicatorColor: AppColors.accentColor,
-            tabs: [
-              Tab(
-                icon: Text(
-                  'Informations',
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-              Tab(
-                icon: Text(
-                  'Trailer',
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-            ],
-          ),
           actions: [
             Obx(
               () {
@@ -65,44 +44,70 @@ class MovieDetailPage extends GetView<MovieDetailPageController> {
           ],
         ),
         body: SafeArea(
-          child: TabBarView(
+          child: Column(
             children: [
-              MovieDetailPageInformationBody(
-                heroTag: controller.tag,
-                movieImage: controller.movieImage,
-                releaseDate: controller.releaseDate,
-                overview: controller.movieOverview,
-                voteAverage: '${controller.grade}',
-              ),
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: FutureBuilder(
-                      future: controller.fetchMovieTrailer(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return YoutubePlayer(
-                            controller: controller.youtubePlayerController,
-                          );
-                        } else if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return SizedBox(
-                            width: double.infinity,
-                            height: MediaQuery.of(context).size.height * .25,
-                            child: const Center(
+              LayoutBuilder(builder: (context, constrains) {
+                if (constrains.maxWidth < 600) {
+                  return const TabBar(
+                    indicatorColor: AppColors.accentColor,
+                    tabs: [
+                      Tab(
+                        icon: Text(
+                          'Informations',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      Tab(
+                        icon: Text(
+                          'Trailer',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  return Container();
+                }
+              }),
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    MovieDetailPageInformationBody(
+                      heroTag: controller.tag,
+                      movieImage: controller.movieImage,
+                      releaseDate: controller.releaseDate,
+                      overview: controller.movieOverview,
+                      voteAverage: '${controller.grade}',
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FutureBuilder(
+                        future: controller.fetchMovieTrailer(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return YoutubePlayer(
+                              controller: controller.youtubePlayerController,
+                            );
+                          } else if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
                               child: CircularProgressIndicator(
                                 color: Colors.white,
                               ),
-                            ),
-                          );
-                        } else {
-                          return Container();
-                        }
-                      },
+                            );
+                          } else {
+                            return Container();
+                          }
+                        },
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),
