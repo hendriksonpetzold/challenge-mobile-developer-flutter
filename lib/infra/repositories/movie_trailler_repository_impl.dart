@@ -28,7 +28,7 @@ class MovieTraillerRepositoryImpl implements MovieTraillerRepository {
       }
       return Right(movieTrailler);
     } catch (e) {
-      return Left(DatasourceError());
+      return Left(TrailerDatasourceError());
     }
   }
 }

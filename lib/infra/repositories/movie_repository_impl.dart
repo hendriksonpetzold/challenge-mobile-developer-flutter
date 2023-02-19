@@ -17,7 +17,7 @@ class MovieRepositoryImpl implements MovieRepository {
       final result = await datasource.getMovie(page);
       return Right(result.map((e) => MovieAdapter.fromMap(e)).toList());
     } catch (e) {
-      return Left(DatasourceError());
+      return Left(MovieDatasourceError());
     }
   }
 }

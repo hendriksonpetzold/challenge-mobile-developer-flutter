@@ -11,14 +11,14 @@ class GetMovieRepositoryMock extends Mock implements MovieRepository {}
 void main() {
   final repository = GetMovieRepositoryMock();
   final usecase = GetMovieUsecaseImpl(repository: repository);
-  test('expect to return a list of MovieEntity', () async {
+  test('should return a list of MovieEntity', () async {
     when(() => repository.getMovie(any()))
         .thenAnswer((_) async => const Right(<MovieEntity>[]));
     final result = await usecase.execute(1);
     expect(result.fold(id, id), isA<List<MovieEntity>>());
   });
 
-  test('expect to return a InvalidPageNumber if you search number 0', () async {
+  test('should return a InvalidPageNumber if you search number 0', () async {
     when(() => repository.getMovie(any()))
         .thenAnswer((_) async => const Right(<MovieEntity>[]));
     final result = await usecase.execute(0);

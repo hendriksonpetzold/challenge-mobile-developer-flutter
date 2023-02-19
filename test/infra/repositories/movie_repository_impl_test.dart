@@ -22,6 +22,6 @@ void main() {
   test('expect to return a DatasourceError if the datasource fail', () async {
     when(() => datasource.getMovie(any())).thenThrow(Exception());
     final result = await repository.getMovie(1);
-    expect(result.fold(id, id), isA<DatasourceError>());
+    expect(result.fold(id, id), isA<MovieDatasourceError>());
   });
 }

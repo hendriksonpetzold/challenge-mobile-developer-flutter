@@ -11,7 +11,7 @@ void main() {
   final repository = GetGenreRepositoryMock();
   final usecase = GetGenreUsecaseImpl(repository: repository);
 
-  test('expect to return a List<GenteEntity>', () async {
+  test('should return a List<GenteEntity>', () async {
     when(() => repository.getGenre())
         .thenAnswer((_) async => const Right(<GenreEntity>[]));
     final result = await usecase.execute();

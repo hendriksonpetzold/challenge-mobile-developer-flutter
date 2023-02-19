@@ -17,7 +17,7 @@ class GenreRepositoryImpl implements GenreRepository {
       final result = await datasource.getGenre();
       return Right(result.map((e) => GenreAdapter.fromMap(e)).toList());
     } catch (e) {
-      return Left(DatasourceError());
+      return Left(GenreDatasourceError());
     }
   }
 }
