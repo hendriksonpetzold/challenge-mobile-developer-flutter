@@ -52,26 +52,30 @@ class HomePage extends GetView<HomeController> {
                       itemCount: controller.searchMovies.length,
                       itemBuilder: (context, index) {
                         final movie = controller.searchMovies[index];
-                        return AppMovieCard(
-                          image: movie.image,
-                          movieName: movie.name,
-                          onAddIconTap: () {
-                            final movieBox =
-                                controller.favoriteMovieBox.get(movie.name);
-                            Get.toNamed(
-                              '/movie_detail',
-                              arguments: {
-                                'movieId': movie.id,
-                                'movieImage': movie.image,
-                                'movieTitle': movie.name,
-                                'movieOverview': movie.overview,
-                                'releaseDate': movie.releaseDate,
-                                'voteAverage': movie.voteAverage,
-                                'genreIds': movie.genreIds,
-                                'isFavorite': movieBox?.isFavorite ?? false,
-                              },
-                            );
-                          },
+                        return Hero(
+                          tag: 'tag$index',
+                          child: AppMovieCard(
+                            image: movie.image,
+                            movieName: movie.name,
+                            onAddIconTap: () {
+                              final movieBox =
+                                  controller.favoriteMovieBox.get(movie.name);
+                              Get.toNamed(
+                                '/movie_detail',
+                                arguments: {
+                                  'movieId': movie.id,
+                                  'movieImage': movie.image,
+                                  'movieTitle': movie.name,
+                                  'movieOverview': movie.overview,
+                                  'releaseDate': movie.releaseDate,
+                                  'voteAverage': movie.voteAverage,
+                                  'genreIds': movie.genreIds,
+                                  'isFavorite': movieBox?.isFavorite ?? false,
+                                  'tag': 'tag$index'
+                                },
+                              );
+                            },
+                          ),
                         );
                       },
                     ),
