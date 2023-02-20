@@ -1,4 +1,3 @@
-import 'package:challange_mobile_developer_flutter/domain/entities/movie_entity.dart';
 import 'package:challange_mobile_developer_flutter/domain/entities/movie_trailer_entity.dart';
 import 'package:challange_mobile_developer_flutter/domain/repositories/movie_trailer_repository.dart';
 import 'package:challange_mobile_developer_flutter/domain/usecases/get_trailer_by_movie_id/get_trailer_by_movie_id_usecase_impl.dart';
