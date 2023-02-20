@@ -28,6 +28,9 @@ class HomePage extends GetView<HomeController> {
               controller: controller.searchEditingController,
               onChanged: (value) => controller.searchMovie(),
             ),
+            const SizedBox(
+              height: 8,
+            ),
             Obx(
               () {
                 if (controller.isLoading.value == false) {
