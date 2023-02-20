@@ -20,13 +20,18 @@ class HomeController extends GetxController {
   RxInt genreId = RxInt(0);
   RxBool test = RxBool(false);
   late Box<MovieEntity> favoriteMovieBox;
-  RefreshController refreshController = RefreshController(initialRefresh: true);
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
   int currentPage = 1;
+  RxBool isLoading = RxBool(true);
 
   @override
-  void onInit() {
+  void onInit() async {
     fetchGenres();
+    fetchMovies(isRefresh: true);
     favoriteMovieBox = Hive.box('favorities');
+    await Future.delayed(const Duration(seconds: 2));
+    isLoading.value = false;
     super.onInit();
   }
 
