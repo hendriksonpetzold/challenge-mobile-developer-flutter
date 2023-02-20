@@ -1,6 +1,5 @@
-import 'package:challange_mobile_developer_flutter/presenter/app_components/app_movie_card.dart';
 import 'package:challange_mobile_developer_flutter/presenter/pages/movie_detail/components/movie_detail_page_information_body.dart';
-import 'package:challange_mobile_developer_flutter/presenter/pages/movie_detail/components/movie_detail_page_information_box.dart';
+
 import 'package:challange_mobile_developer_flutter/presenter/pages/movie_detail/movie_detail_page_controller.dart';
 import 'package:challange_mobile_developer_flutter/styles/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -82,6 +81,7 @@ class MovieDetailPage extends GetView<MovieDetailPageController> {
                       releaseDate: controller.releaseDate,
                       overview: controller.movieOverview,
                       voteAverage: '${controller.grade}',
+                      genres: controller.genresById.join(', '),
                     ),
                     FutureBuilder(
                       future: controller.fetchMovieTrailer(),
