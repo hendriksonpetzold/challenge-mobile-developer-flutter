@@ -27,10 +27,10 @@ class HomeController extends GetxController {
 
   @override
   void onInit() async {
-    fetchGenres();
-    fetchMovies(isRefresh: true);
+    await fetchGenres();
+    await fetchMovies(isRefresh: true);
     favoriteMovieBox = Hive.box('favorities');
-    await Future.delayed(const Duration(seconds: 2));
+
     isLoading.value = false;
     super.onInit();
   }
