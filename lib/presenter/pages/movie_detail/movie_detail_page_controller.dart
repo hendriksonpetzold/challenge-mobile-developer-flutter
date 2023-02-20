@@ -1,3 +1,4 @@
+import 'package:challange_mobile_developer_flutter/domain/entities/genre_entity.dart';
 import 'package:challange_mobile_developer_flutter/domain/entities/movie_trailer_entity.dart';
 import 'package:challange_mobile_developer_flutter/domain/usecases/get_trailer_by_movie_id/get_trailer_by_movie_id_usecase.dart';
 import 'package:challange_mobile_developer_flutter/presenter/pages/favorite/favorite_controller.dart';
@@ -25,9 +26,11 @@ class MovieDetailPageController extends GetxController {
   String movieOverview = Get.arguments['movieOverview'];
   String releaseDate = Get.arguments['releaseDate'];
   double grade = Get.arguments['voteAverage'];
-  List<int> genreIds = Get.arguments['genreIds'];
   String tag = Get.arguments['tag'];
-  RxList<String> genresById = RxList([]);
+  List<int> genreIds = Get.arguments['genreIds'];
+  List<GenreEntity> genres = Get.arguments['genres'];
+  List<String> genresById = [];
+
   late YoutubePlayerController youtubePlayerController =
       YoutubePlayerController(
     initialVideoId: YoutubePlayer.convertUrlToId(
@@ -39,6 +42,7 @@ class MovieDetailPageController extends GetxController {
   @override
   void onInit() {
     fetchMovieTrailer();
+    getGenreByGenreId();
     favoriteMovieBox = Hive.box('favorities');
     super.onInit();
   }
@@ -101,6 +105,14 @@ class MovieDetailPageController extends GetxController {
         );
         await Future.delayed(const Duration(seconds: 4));
         isSnackBarUp = false;
+      }
+    }
+  }
+
+  void getGenreByGenreId() {
+    for (var element in genres) {
+      if (genreIds.contains(element.id)) {
+        genresById.add(element.name);
       }
     }
   }

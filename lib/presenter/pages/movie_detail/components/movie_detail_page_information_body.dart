@@ -7,6 +7,7 @@ class MovieDetailPageInformationBody extends StatelessWidget {
   final String releaseDate;
   final String overview;
   final String voteAverage;
+  final String genres;
 
   const MovieDetailPageInformationBody({
     Key? key,
@@ -15,6 +16,7 @@ class MovieDetailPageInformationBody extends StatelessWidget {
     required this.releaseDate,
     required this.overview,
     required this.voteAverage,
+    required this.genres,
   }) : super(key: key);
 
   @override
@@ -35,51 +37,74 @@ class MovieDetailPageInformationBody extends StatelessWidget {
                         'https://image.tmdb.org/t/p/w220_and_h330_face$movieImage'),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Release Date',
-                        style: TextStyle(
-                          color: AppColors.textColor,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Release Date',
+                          style: TextStyle(
+                            color: AppColors.textColor,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        releaseDate,
-                        style: const TextStyle(
-                          color: AppColors.textColor,
-                          fontSize: 16,
+                        const SizedBox(
+                          height: 8,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      const Text(
-                        'Grade',
-                        style: TextStyle(
-                          color: AppColors.textColor,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                        Text(
+                          releaseDate,
+                          style: const TextStyle(
+                            color: AppColors.textColor,
+                            fontSize: 16,
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        voteAverage,
-                        style: const TextStyle(
-                          color: AppColors.textColor,
-                          fontSize: 16,
+                        const SizedBox(
+                          height: 8,
                         ),
-                      ),
-                    ],
+                        const Text(
+                          'Grade',
+                          style: TextStyle(
+                            color: AppColors.textColor,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          voteAverage,
+                          style: const TextStyle(
+                            color: AppColors.textColor,
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        const Text(
+                          'Genres',
+                          style: TextStyle(
+                            color: AppColors.textColor,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          genres,
+                          style: const TextStyle(
+                            color: AppColors.textColor,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 )
               ],

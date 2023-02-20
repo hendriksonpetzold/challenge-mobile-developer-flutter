@@ -85,6 +85,7 @@ class HomePage extends GetView<HomeController> {
                                           'releaseDate': movie.releaseDate,
                                           'voteAverage': movie.voteAverage,
                                           'genreIds': movie.genreIds,
+                                          'genres': controller.genres,
                                           'isFavorite':
                                               movieBox?.isFavorite ?? false,
                                           'tag': 'tag$index'
