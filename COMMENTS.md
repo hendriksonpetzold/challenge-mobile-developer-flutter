@@ -86,7 +86,7 @@ Novamente:
 
 ### Estilização
 
-Todas as cores mais ultilizadas estão nesse arquivo, embora em algumas raras exceções(casos bastante específicos) usei cores diferentes, caso tivesse um figma muito assertivo esse "erro" não deveria ser cometido para evitar problemas futuros.
+Todas as cores utilizadas estão nesse arquivo, salve rarissimas exceções.
 
 > lib/styles/app_colors.dart
 
