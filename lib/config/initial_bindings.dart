@@ -1,5 +1,5 @@
 import 'package:challange_mobile_developer_flutter/domain/repositories/movie_repository.dart';
-import 'package:challange_mobile_developer_flutter/domain/repositories/movie_trailler_repository.dart';
+import 'package:challange_mobile_developer_flutter/domain/repositories/movie_trailer_repository.dart';
 import 'package:challange_mobile_developer_flutter/domain/usecases/get_movie/get_movie_usecase.dart';
 import 'package:challange_mobile_developer_flutter/domain/usecases/get_movie/get_movie_usecase_impl.dart';
 import 'package:challange_mobile_developer_flutter/domain/usecases/get_trailer_by_movie_id/get_trailer_by_movie_id_usecase.dart';
@@ -9,7 +9,7 @@ import 'package:challange_mobile_developer_flutter/external/datasources/movie_tr
 import 'package:challange_mobile_developer_flutter/infra/datasource/movie_datasource.dart';
 import 'package:challange_mobile_developer_flutter/infra/datasource/movie_trailer_datasource.dart';
 import 'package:challange_mobile_developer_flutter/infra/repositories/movie_repository_impl.dart';
-import 'package:challange_mobile_developer_flutter/infra/repositories/movie_trailler_repository_impl.dart';
+import 'package:challange_mobile_developer_flutter/infra/repositories/movie_trailer_repository_impl.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
@@ -42,8 +42,8 @@ class InitialBindings implements Bindings {
 
     final MovieTrailerDatasource movieTrailerDatasource =
         Get.put(MovieTrailerDatasourceImpl(dio: dio));
-    final MovieTraillerRepository movieTraillerRepository = Get.put(
-        MovieTraillerRepositoryImpl(datasource: movieTrailerDatasource));
+    final MovieTrailerRepository movieTraillerRepository =
+        Get.put(MovieTrailerRepositoryImpl(datasource: movieTrailerDatasource));
     Get.put<GetTrailerByMovieIdUsecase>(
         GetTrailerByMovieIdUsecaseImpl(repository: movieTraillerRepository));
   }

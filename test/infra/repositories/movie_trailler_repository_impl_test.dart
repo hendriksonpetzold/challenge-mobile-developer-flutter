@@ -1,7 +1,7 @@
 import 'package:challange_mobile_developer_flutter/domain/entities/movie_trailer_entity.dart';
 import 'package:challange_mobile_developer_flutter/domain/errors/errors.dart';
 import 'package:challange_mobile_developer_flutter/infra/datasource/movie_trailer_datasource.dart';
-import 'package:challange_mobile_developer_flutter/infra/repositories/movie_trailler_repository_impl.dart';
+import 'package:challange_mobile_developer_flutter/infra/repositories/movie_trailer_repository_impl.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -13,11 +13,11 @@ class MovieTrailerDatasourceMock extends Mock
 
 void main() {
   final datasource = MovieTrailerDatasourceMock();
-  final repository = MovieTraillerRepositoryImpl(datasource: datasource);
+  final repository = MovieTrailerRepositoryImpl(datasource: datasource);
   test('should return a MovieTraillerEntity', () async {
     when(() => datasource.getMovieVideos(any())).thenAnswer((_) async => []);
 
-    final result = await repository.getMovieTraillerByMovieId(12);
+    final result = await repository.getMovieTrailerByMovieId(12);
     expect(result.fold(id, id), isA<MovieTrailerEntity>());
   });
 
@@ -25,9 +25,16 @@ void main() {
     when(() => datasource.getMovieVideos(any()))
         .thenAnswer((_) async => movieByIdListMock);
 
-    final result = await repository.getMovieTraillerByMovieId(12);
+    final result = await repository.getMovieTrailerByMovieId(12);
     MovieTrailerEntity? movieTrailerEntity;
     result.fold((l) => l, (r) => movieTrailerEntity = r);
     expect(movieTrailerEntity!.key, '_Z3QKkl1WyM');
+  });
+
+  test('should return a TrailerDatasourceError', () async {
+    when(() => datasource.getMovieVideos(any())).thenThrow(Exception());
+
+    final result = await repository.getMovieTrailerByMovieId(12);
+    expect(result.fold(id, id), isA<TrailerDatasourceError>());
   });
 }

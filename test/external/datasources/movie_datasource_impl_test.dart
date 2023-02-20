@@ -30,7 +30,7 @@ void main() {
     expect(result, isA<List>());
   });
 
-  test('should get movie by id', () async {
+  test('should get movie id', () async {
     when(() => dio.get(any())).thenAnswer((_) async => Response(
           requestOptions: RequestOptions(),
           data: moviesMock,
