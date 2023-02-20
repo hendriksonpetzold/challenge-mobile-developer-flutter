@@ -16,7 +16,7 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backGroundColor,
+      backgroundColor: AppColors.primaryColor,
       body: Padding(
         padding: const EdgeInsets.only(left: 8, right: 8),
         child: Column(

@@ -13,7 +13,7 @@ class InitialPage extends GetView<InitialPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backGroundColor,
+      backgroundColor: AppColors.primaryColor,
       body: SafeArea(
         child: Obx(
           () {

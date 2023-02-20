@@ -10,7 +10,7 @@ class FavoritePage extends GetView<FavoriteController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backGroundColor,
+      backgroundColor: AppColors.primaryColor,
       body: Padding(
         padding: const EdgeInsets.only(
           left: 8,

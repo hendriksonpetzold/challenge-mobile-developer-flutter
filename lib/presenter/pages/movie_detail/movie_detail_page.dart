@@ -14,9 +14,9 @@ class MovieDetailPage extends GetView<MovieDetailPageController> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: AppColors.backGroundColor,
+        backgroundColor: AppColors.primaryColor,
         appBar: AppBar(
-          backgroundColor: AppColors.backGroundColor,
+          backgroundColor: AppColors.primaryColor,
           centerTitle: true,
           title: Text(controller.movieTitle),
           actions: [
