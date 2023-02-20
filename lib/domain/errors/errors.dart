@@ -7,5 +7,3 @@ class MovieDatasourceError implements FailureGet {}
 class GenreDatasourceError implements FailureGet {}
 
 class TrailerDatasourceError implements FailureGet {}
-
-class InvalidMovieIdError implements FailureGet {}
