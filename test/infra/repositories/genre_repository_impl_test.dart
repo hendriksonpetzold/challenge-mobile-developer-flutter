@@ -20,6 +20,6 @@ void main() {
   test('expect to return a DatasourceError if the datasource fail', () async {
     when(() => datasource.getGenre()).thenThrow(Exception());
     final result = await repository.getGenre();
-    expect(result.fold(id, id), isA<DatasourceError>());
+    expect(result.fold(id, id), isA<GenreDatasourceError>());
   });
 }

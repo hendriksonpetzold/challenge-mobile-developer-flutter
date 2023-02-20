@@ -17,7 +17,7 @@ class MovieTrailerDatasourceImpl implements MovieTrailerDatasource {
       final result = response.data['videos']['results'] as List;
       return result;
     } else {
-      throw DatasourceError();
+      throw TrailerDatasourceError();
     }
   }
 }

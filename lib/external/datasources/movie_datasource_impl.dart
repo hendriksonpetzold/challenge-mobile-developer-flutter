@@ -16,7 +16,7 @@ class MovieDatasourceImpl implements MovieDatasource {
       final result = response.data['results'] as List;
       return result;
     } else {
-      throw DatasourceError();
+      throw MovieDatasourceError();
     }
   }
 }

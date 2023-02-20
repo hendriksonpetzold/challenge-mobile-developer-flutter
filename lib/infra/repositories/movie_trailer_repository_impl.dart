@@ -5,16 +5,16 @@ import 'package:challange_mobile_developer_flutter/domain/entities/movie_trailer
 import 'package:challange_mobile_developer_flutter/domain/errors/errors.dart';
 import 'package:challange_mobile_developer_flutter/infra/datasource/movie_trailer_datasource.dart';
 
-import '../../domain/repositories/movie_trailler_repository.dart';
+import '../../domain/repositories/movie_trailer_repository.dart';
 
-class MovieTraillerRepositoryImpl implements MovieTraillerRepository {
+class MovieTrailerRepositoryImpl implements MovieTrailerRepository {
   MovieTrailerDatasource datasource;
-  MovieTraillerRepositoryImpl({
+  MovieTrailerRepositoryImpl({
     required this.datasource,
   });
 
   @override
-  Future<Either<FailureGet, MovieTrailerEntity>> getMovieTraillerByMovieId(
+  Future<Either<FailureGet, MovieTrailerEntity>> getMovieTrailerByMovieId(
       int id) async {
     try {
       final result = await datasource.getMovieVideos(id);
@@ -28,7 +28,7 @@ class MovieTraillerRepositoryImpl implements MovieTraillerRepository {
       }
       return Right(movieTrailler);
     } catch (e) {
-      return Left(DatasourceError());
+      return Left(TrailerDatasourceError());
     }
   }
 }
