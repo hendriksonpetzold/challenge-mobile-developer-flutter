@@ -95,4 +95,20 @@ Todas as cores mais ultilizadas estão nesse arquivo, embora em algumas raras ex
 
 Novas regras devem ser adicionadas utilizando clean architecture, mais precisamente na camada de *domínio*, utilizando casos de uso (_usecases_) e testes.
 
+### Lista de bibliotecas de terceiros utilizadas
+
+- GetX
+- Hive
+- Dartz
+- Mocktail
+- Dio
+- Youtube Player Flutter
+- Pull To Refresh
+- Shimmer
+- Build Runner
+
+### O que voce melhoraria se tivesse mais tempo
+
+Caso tivesse mais tempo de projeto, adicionaria o armazenamento em Cache, para com que futuras solicitações referente aos mesmos dados sejam solicitadas ao cache, diminuindo bastante o número de requisições feitas a API, aumentando assim a velocidade de funcionamento do APP.
+
 
